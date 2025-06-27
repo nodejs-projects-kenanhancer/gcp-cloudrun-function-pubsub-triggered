@@ -1,28 +1,25 @@
-# cdt_medallion_pubsub_to_bronze
+# gcp-cloudrun-function-pubsub-triggered
 
-Author: Kenan Hancer <kenan.hancer@ovo.com>
+Author: Kenan Hancer <kenanhancer@gmail.com>
 
 GCP TypeScript Cloud Function
 
 ## Clean Architecture Overview
 
-![Architecture Overview](./images/clean_architecture.png)
+![Architecture Overview](./images/clean-architecture.png)
 
 ## Key Features
 
 1. Multiple Trigger Types
-
    - HTTP Trigger – Demonstrates how to handle HTTP requests and responses.
    - Storage Trigger – Respond to events from Google Cloud Storage, such as file creation or deletion.
    - Pub/Sub Trigger – Process messages from Google Pub/Sub topics.
 
 1. Centralized Configuration Management
-
    - Load and inject environment variables from a local `.env`, `config.json` or `config.yaml` file.
    - Load and inject environment variables from `Google Storage`, `Google Secret Manager` so that settings of application will be centralised
 
 1. Dependency Management and Testing
-
    - Yarn is used for efficient dependency management and packaging.
    - Jest provides a comprehensive testing framework for TypeScript, ensuring reliability and consistency of your Cloud Functions.
    - NestJS Testing Module for integration testing.
@@ -182,17 +179,17 @@ brew install asdf
 1. Clone the Repository:
 
    ```bash
-   git clone https://github.com/ovotech/cdt_medallion_pubsub_to_bronze.git
-   cd cdt_medallion_pubsub_to_bronze
+   git clone https://github.com/nodejs-projects-kenanhancer/gcp-cloudrun-function-pubsub-triggered.git
+   cd gcp-cloudrun-function-pubsub-triggered
    ```
 
 1. Create **.env** file to load application settings:
 
    ```bash
    BASIC_SETTINGS__ENVIRONMENT=dev
-   BASIC_SETTINGS__GCP_PROJECT_ID=cdt-medallion-udbfy-dev
-   BASIC_SETTINGS__GCP_PROJECT_NUMBER=310837084154
-   BASIC_SETTINGS__APP_CONFIG_BUCKET=ovo-app-config-310837084154-dev
+   BASIC_SETTINGS__GCP_PROJECT_ID=medallion-dev-463909
+   BASIC_SETTINGS__GCP_PROJECT_NUMBER=368539885233
+   BASIC_SETTINGS__APP_CONFIG_BUCKET=app-config-368539885233-dev
    BASIC_SETTINGS__GCP_SERVICE_NAME=bast_account_billing_hold_v1
    ```
 
@@ -251,7 +248,7 @@ brew install asdf
 
   ```bash
   gcloud run services list \
-    --project=nexum-dev-364711 \
+    --project=gcp-cloudrun-function-pubsub-triggered \
     --region=europe-north1
   ```
 
@@ -259,7 +256,7 @@ brew install asdf
 
   ```bash
   gcloud functions logs read collection-status-dev \
-    --project=nexum-dev-364711 \
+    --project=gcp-cloudrun-function-pubsub-triggered \
     --region=europe-north1
   ```
 
@@ -267,7 +264,7 @@ brew install asdf
 
   ```bash
   gcloud functions logs read collection-status-dev \
-    --project=nexum-dev-364711 \
+    --project=gcp-cloudrun-function-pubsub-triggered \
     --region=europe-north1 \
     --limit=5 \
     --format=json
@@ -276,7 +273,7 @@ brew install asdf
 - Test Cloud Function
 
   ```bash
-  curl -m 70 -X GET https://europe-north1-nexum-dev-364711.cloudfunctions.net/collection-status-dev \
+  curl -m 70 -X GET https://europe-north1-gcp-cloudrun-function-pubsub-triggered.cloudfunctions.net/collection-status-dev \
   -H "Authorization: bearer $(gcloud auth print-identity-token)"
   ```
 
@@ -383,9 +380,13 @@ gcloud auth login                         # Authenticate account
 ## Terraform Deployment from local for **terraform**
 
 ```bash
-cd ./cdt_medallion_pubsub_to_bronze
+cd ./gcp-cloudrun-function-pubsub-triggered
 source ./scripts/init_terraform.sh
-init_terraform -b terraform-state-bucket -p cdt-medallion-udbfy-dev -d terraform -k "GrEs/8Y9T6c8XHppgSClVMopJuXH17XakvmgxHCmawo="
+gcp_project_id=<PROJECT-ID>
+gcp_bucket_name=terraform-state-bucket
+terraform_dir=terraform
+encryption_key="ch4xHNN/6Jlnt7wzZMD0nA3/vjb13YOmUHqhTrZc84c="
+init_terraform -b $gcp_bucket_name -p $gcp_project_id -d $terraform_dir -k $encryption_key
 terraform -chdir=terraform plan
 terraform -chdir=terraform apply
 ```

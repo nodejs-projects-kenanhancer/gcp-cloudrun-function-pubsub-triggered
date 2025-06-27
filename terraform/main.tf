@@ -30,7 +30,7 @@ module "functions" {
 
   basic_config = var.basic_config
   function_config = merge(each.value, {
-    source_bucket                    = data.terraform_remote_state.shared_resources.outputs.storage_resources.result.buckets.ovo_cloud_function_source.bucket_name
+    source_bucket                    = data.terraform_remote_state.shared_resources.outputs.storage_resources.result.buckets.cloud_function_source.bucket_name
     run_time_service_account_email   = data.terraform_remote_state.shared_resources.outputs.iam_resources.result.service_accounts.cloud_function.email
     build_time_service_account_email = data.terraform_remote_state.github_actions_resources.outputs.formatted_service_account
   })

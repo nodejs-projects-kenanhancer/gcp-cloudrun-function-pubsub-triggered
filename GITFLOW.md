@@ -4,7 +4,7 @@ This repository follows GitFlow branching strategy for deployment with automated
 
 ## Gitflow Sequence Diagram
 
-![Architecture Overview](./images/ovo_gitflow_sequence_diagram.png)
+![Architecture Overview](./images/gitflow-sequence-diagram.png)
 
 ## Table of Contents
 
@@ -78,13 +78,11 @@ dev     o---o---o---o---o---o---o---o  (Integration branch)
 ```
 
 - `main`: Production-ready code with version tags
-
   - All production releases are tagged here
   - No direct commits allowed
   - Merges only from release/_ or hotfix/_ branches
 
 - `dev`: Development integration branch
-
   - All features integrate here first
   - Continuous integration testing
   - Source for release branches
@@ -121,7 +119,6 @@ dev                            o
 - Tags (e.g., `v1.0.0`) - Production releases
 
 - `feature/*`: New feature development
-
   - Branched from: dev
   - Merges to: dev
   - Naming: feature/descriptive-name

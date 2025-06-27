@@ -1,10 +1,10 @@
 {
-  "name": "cdt_medallion_pubsub_to_bronze",
+  "name": "gcp-cloudrun-function-pubsub-triggered",
   "version": "0.0.2",
   "description": "GCP TypeScript Cloud Function",
   "author": {
     "name": "Kenan Hancer",
-    "email": "kenan.hancer@ovo.com"
+    "email": "kenanhancer@gmail.com"
   },
   "private": true,
   "license": "UNLICENSED",

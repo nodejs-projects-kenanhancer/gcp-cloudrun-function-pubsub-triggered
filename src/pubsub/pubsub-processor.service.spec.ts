@@ -170,7 +170,7 @@ describe('PubsubProcessorService', () => {
           action: 'Deleted',
           actionTimestamp: 1747286024941,
           currentState: {
-            'com.ovoenergy.kafka.bast.billing.OnHold': {
+            'com.kenanhancer.kafka.bast.billing.OnHold': {
               holds: [
                 {
                   holdId: '440829',
