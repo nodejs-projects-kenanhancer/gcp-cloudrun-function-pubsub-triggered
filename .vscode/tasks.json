@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Update GCP Token",
+      "type": "shell",
+      "command": "if grep -q '^GOOGLE_TOKEN=' .env; then sed -i '' 's/^GOOGLE_TOKEN=.*/GOOGLE_TOKEN='\"$(gcloud auth print-identity-token)\"'/' .env; else echo \"GOOGLE_TOKEN=$(gcloud auth print-identity-token)\" >> .env; fi",
+      "problemMatcher": []
+    }
+  ]
+}

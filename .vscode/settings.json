@@ -1,0 +1,128 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "files.watcherExclude": {
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/coverage/**": true,
+    "**/.nest/**": true
+  },
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true
+  },
+
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.quoteStyle": "single",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnSave": true
+  },
+
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.formatOnSave": true
+  },
+
+  "jest.runMode": {
+    "type": "watch"
+  },
+
+  "jest.jestCommandLine": "yarn test:all",
+
+  "jestrunner.jestCommand": "yarn test:all",
+
+  "jestrunner.debugOptions": {
+    "runtimeArgs": ["--experimental-vm-modules"],
+    "args": ["--detectOpenHandles"]
+  },
+
+  "debug.javascript.terminalOptions": {
+    "skipFiles": ["<node_internals>/**"]
+  },
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.formatOnSave": true
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+    "editor.formatOnSave": true
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "version": "v1"
+    },
+    "development": {
+      "baseUrl": "http://localhost:8080",
+      "environment": "development"
+    },
+    "preprod": {
+      "baseUrl": "https://staging-api.your-domain.com",
+      "environment": "staging"
+    },
+    "production": {
+      "baseUrl": "https://api.your-domain.com",
+      "environment": "production"
+    }
+  }
+}

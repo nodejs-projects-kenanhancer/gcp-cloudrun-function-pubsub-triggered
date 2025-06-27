@@ -1,0 +1,158 @@
+# @baseUrl = {{$dotenv baseUrl}}
+@contentType = application/json
+
+### Test PubSub with valid CloudEvent (JSON payload)
+# This test uses a valid JSON object: {"test":"value"}
+POST {{baseUrl}}/pubsub/test
+Content-Type: {{contentType}}
+
+{
+  "specversion": "1.0",
+  "id": "test-id-123",
+  "source": "test-source",
+  "type": "test-type",
+  "data": {
+    "message": {
+      "messageId": "message-id-123",
+      "data": "eyJ0ZXN0IjoidmFsdWUifQ==",
+      "publishTime": "2023-01-01T00:00:00.000Z",
+      "attributes": {
+        "key1": "value1",
+        "key2": "value2"
+      }
+    }
+  }
+}
+
+### Test PubSub with complex JSON payload
+# This test uses a more complex JSON object
+POST {{baseUrl}}/pubsub/test
+Content-Type: {{contentType}}
+
+{
+  "specversion": "1.0",
+  "id": "complex-json-123",
+  "source": "test-source",
+  "type": "test-type",
+  "data": {
+    "message": {
+      "messageId": "complex-123",
+      "data": "eyJuYW1lIjoiVGVzdCBQcm9kdWN0IiwicHJpY2UiOjI5Ljk5LCJpblN0b2NrIjp0cnVlLCJ0YWdzIjpbIm5ldyIsImRpc2NvdW50ZWQiXSwiZGV0YWlscyI6eyJjb2xvciI6InJlZCIsInNpemUiOiJtZWRpdW0ifX0=",
+      "publishTime": "2023-01-01T00:00:00.000Z"
+    }
+  }
+}
+
+### Test PubSub with missing ID (should fail with 400)
+POST {{baseUrl}}/pubsub/test
+Content-Type: {{contentType}}
+
+{
+  "specversion": "1.0",
+  "source": "test-source",
+  "type": "test-type",
+  "data": {
+    "message": {
+      "messageId": "message-id-123",
+      "data": "eyJ0ZXN0IjoidmFsdWUifQ==",
+      "publishTime": "2023-01-01T00:00:00.000Z"
+    }
+  }
+}
+
+### Test PubSub with missing message (should fail with 400)
+POST {{baseUrl}}/pubsub/test
+Content-Type: {{contentType}}
+
+{
+  "specversion": "1.0",
+  "id": "test-id-123",
+  "source": "test-source",
+  "type": "test-type",
+  "data": {}
+}
+
+### Test PubSub with plain text data
+# Uses "Hello, World!" encoded in base64
+POST {{baseUrl}}/pubsub/test
+Content-Type: {{contentType}}
+
+{
+  "specversion": "1.0",
+  "id": "plain-text-123",
+  "source": "test-source",
+  "type": "test-type",
+  "data": {
+    "message": {
+      "messageId": "text-123",
+      "data": "SGVsbG8sIFdvcmxkIQ==",
+      "publishTime": "2023-01-01T00:00:00.000Z"
+    }
+  }
+}
+
+### Test PubSub with invalid JSON in data
+# Uses "{broken json" encoded in base64
+POST {{baseUrl}}/pubsub/test
+Content-Type: {{contentType}}
+
+{
+  "specversion": "1.0",
+  "id": "invalid-json-123",
+  "source": "test-source",
+  "type": "test-type",
+  "data": {
+    "message": {
+      "messageId": "broken-123",
+      "data": "e2Jyb2tlbiBqc29u",
+      "publishTime": "2023-01-01T00:00:00.000Z"
+    }
+  }
+}
+
+### Test PubSub with empty data
+POST {{baseUrl}}/pubsub/test
+Content-Type: {{contentType}}
+
+{
+  "specversion": "1.0",
+  "id": "empty-data-123",
+  "source": "test-source",
+  "type": "test-type",
+  "data": {
+    "message": {
+      "messageId": "empty-123",
+      "data": "",
+      "publishTime": "2023-01-01T00:00:00.000Z"
+    }
+  }
+}
+
+### Test PubSub with dynamically generated event
+@messageId = msg-{{$randomInt 1000 9999}}
+@timestamp = {{$datetime iso8601}}
+@message = {"dynamic":"data","timestamp":"{{timestamp}}","random":{{$randomInt 1 100}}}
+@encodedMessage = eyJkeW5hbWljIjoiZGF0YSIsInRpbWVzdGFtcCI6IjIwMjUtMDUtMTFUMTI6MzA6MDBaIiwicmFuZG9tIjo0M30=
+
+
+POST {{baseUrl}}/pubsub/test
+Content-Type: {{contentType}}
+
+{
+  "specversion": "1.0",
+  "id": "dynamic-{{$guid}}",
+  "source": "vscode-rest-client",
+  "type": "test-event",
+  "time": "{{timestamp}}",
+  "data": {
+    "message": {
+      "messageId": "{{messageId}}",
+      "data": "{{encodedMessage}}",
+      "publishTime": "{{timestamp}}",
+      "attributes": {
+        "origin": "rest-client",
+        "environment": "{{$processEnv environment}}"
+      }
+    }
+  }
+}
